@@ -176,11 +176,15 @@ export function calcularTanque(
   nucleo: CalculoNucleo,
   bobinas: CalculoBobinas
 ): CalculoTanque {
-  // Dimensões da parte ativa
-  const parteAtiva = calcularDimensoesParteAtiva(nucleo, bobinas);
-
-  // Dimensões do tanque
-  const dimensoesTanque = calcularDimensoesTanque(parteAtiva);
+  // Dimensões do tanque conforme especificação:
+  // - Altura: altura do núcleo + 150mm
+  // - Comprimento: comprimento do núcleo + diâmetro da bobina externa
+  // - Largura: diâmetro da bobina externa + 250mm
+  const dimensoesTanque = {
+    altura_mm: nucleo.alturaNucleo_mm + 150,
+    comprimento_mm: nucleo.comprimentoNucleo_mm + bobinas.diametroExternoAT_mm,
+    largura_mm: bobinas.diametroExternoAT_mm + 250,
+  };
 
   // Volumes
   const volumeTanque_L = calcularVolumeTanque(
